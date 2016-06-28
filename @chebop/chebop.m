@@ -209,7 +209,7 @@ classdef (InferiorClasses = {?double}) chebop
 % See also CHEBOP/MTIMES, CHEBOP/MLDIVIDE, CHEBOP/SOLVEBVP, CHEBOP/SOLVEIVP, 
 %   CHEBOPPREF.
 
-% Copyright 2015 by The University of Oxford and The Chebfun Developers. See
+% Copyright 2016 by The University of Oxford and The Chebfun Developers. See
 % http://www.chebfun.org/ for Chebfun information.
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -302,32 +302,6 @@ classdef (InferiorClasses = {?double}) chebop
             end
             
         end
-    end
-    
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %% CLASS METHODS
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    methods ( Access = public, Static = false )
-        
-        % Alternate & syntax for BC's.
-        N = and(N, BC)
-        
-        % Find selected eigenvalues and eigenfunctions of a linear CHEBOP.
-        varargout = eigs(N, varargin)
-        
-        % Linearize a CHEBOP around a CHEBFUN u.
-        [L, res, isLinear, u] = ...
-            linearize(N, u, x, linCheckFlag, paramReshapeFlag);  
-        
-        %\   Chebop backslash.
-        varargout = mldivide(N, rhs, pref, varargin)
-        
-        % The number of input arguments to a CHEBOP .OP field.
-        nIn = nargin(N)
-        
-        % Determine discretization for a CHEBOP object
-        pref = determineDiscretization(N, lengthDom, pref)
-        
     end
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
