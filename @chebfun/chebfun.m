@@ -107,7 +107,7 @@ classdef chebfun
 %
 % See also CHEBFUNPREF, CHEBPTS.
 
-% Copyright 2016 by The University of Oxford and The Chebfun Developers.
+% Copyright 2017 by The University of Oxford and The Chebfun Developers.
 % See http://www.chebfun.org/ for Chebfun information.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -683,7 +683,16 @@ function [op, dom, data, pref, flags] = parseInputs(op, varargin)
             end
         end
     end
-
+    
+    % It doesn't make sense to construct from values and coeffs at the same
+    % time.
+    if ( iscell(op) && iscell(op{1}) && isfield(keywordPrefs, 'tech') && ...
+            ~isempty(keywordPrefs.tech) )
+        error('CHEBFUN:CHEBFUN:parseInputs:coeffschebkind', ...
+            [' ''coeffs'' and ''chebkind'' should not be ' ...
+            'specified simultaneously.']);
+    end
+    
     % Override preferences supplied via a preference object with those supplied
     % via keyword.
     if ( prefWasPassed )

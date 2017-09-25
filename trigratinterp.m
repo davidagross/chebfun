@@ -52,7 +52,7 @@ function varargout = trigratinterp(fk, m, n, varargin)
 %
 % See also RATINTERP, INTERP1, CHEBPADE.
 
-% Copyright 2016 by The University of Oxford and The Chebfun Developers.
+% Copyright 2017 by The University of Oxford and The Chebfun Developers.
 % See http://www.chebfun.org/ for Chebfun information.
 
 % TODO:  Deal with array-valued CHEBFUNs / quasimatrices.
@@ -78,6 +78,12 @@ nu = (length(bc) - 1)/2;
 % Build the numerator and denominator polynomials and create the output
 % function handle for evaluating the rational approximation.
 [p, q, r] = constructTrigRatApprox(ac, bc, dom, ts);
+
+% Normalize q to 1 if a type (m, 0) approximation is computed
+if ( n == 0 || nu == 0 )
+    p = p./q;
+    q = q./q;
+end
 
 % Compute poles and residues if requested.
 poles = [];

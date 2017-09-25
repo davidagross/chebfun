@@ -1,16 +1,16 @@
 function psi = psiEval(l, C, LR, N, dim, nVars)
-%PSIEVAL   Evaluate a psi function.
+%PSIEVAL   Evaluate a psi-function.
 %   PSI = PSIEVAL(L, C, LR, N, DIM, NVARS) evaluates the psi-function of index L 
 %   and coefficient C with the contour LR, N grid points, in dimension DIM and 
 %   with NVARS variables.
 %
-% See also SPINSCHEME/PHIEVAL, SPINSCHEME/PHIFUN.
+% See also EXPINT/PHIEVAL, EXPINT/PHIFUN.
 
-% Copyright 2016 by The University of Oxford and The Chebfun Developers.
+% Copyright 2017 by The University of Oxford and The Chebfun Developers.
 % See http://www.chebfun.org/ for Chebfun information.
 
 % Get a function handle to the phi-function of index L:
-phi = spinscheme.phiFun(l);
+phi = expint.phiFun(l);
 
 % Evaluate the psi-function with a contour integral:
 psi = mean(C^l*feval(phi, C*LR), 2);
